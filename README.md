@@ -70,8 +70,8 @@ and this means you can choose from variety of other terminals and they will work
 
 Finally auto-login.
 The usual way is to copy the getty service, rename it, create sym link and edit it. 
-For your personal phone though I prefer to just edit the getty service (/usr/lib/systemd/system/getty@.service) itself
-and leave the exec line as follows:
+For my personal phone though I prefer to just edit the getty service (/usr/lib/systemd/system/getty@.service) itself
+and replace the exec line as follows:
 ```shell
 ExecStart=-/sbin/agetty -a alarm %I $TERM
 ```
