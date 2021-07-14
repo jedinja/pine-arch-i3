@@ -7,7 +7,7 @@ The manual is devided into steps, which follow the following format:
 ```diff
 + Decide to install Arch + i3 on your Pinephone
 
-! Why: Because it's my desktop environment and it would be cool to just dock your phone and be at home
+! Why: Because it'd be cool to just dock your phone and be at your desktop environment
 ```
 It's done by following the instructions in this page.
 ##### Resources
