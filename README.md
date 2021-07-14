@@ -86,3 +86,23 @@ If you want to use another user you'll have to substitute it on every place in t
 - [Init X](https://wiki.archlinux.org/title/Xinit#Configuration)
 - [i3 terminals](https://man.archlinux.org/man/i3-sensible-terminal.1.en)
 - [Passwordless auto-login](https://unix.stackexchange.com/questions/42359/how-can-i-autologin-to-desktop-with-systemd)
+
+### Step 3
+```diff
++ Disable default power button behavior
+
+! Why: You don't want the power button on a phone to shut it down.
+```
+The default power action would be set to ignore, so that nothing happens. 
+But no worries - later it'd be configured in i3 to do what we want it to.
+For now disabling it would prevent accidental shut down, which is annoying.
+
+Locate the file /etc/systemd/logind.conf and add the line:
+```shell
+HandlePowerKey=ignore
+```
+Note there is already one commented out.
+
+##### Resources
+- [logind.conf manual](https://man7.org/linux/man-pages/man5/logind.conf.5.html)
+
