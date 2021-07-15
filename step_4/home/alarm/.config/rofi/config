@@ -1,0 +1,5 @@
+rofi.combi-modi:    drun,run
+rofi.theme:         solarized
+rofi.font:          hack 10
+rofi.modi:          combi
+rofi.theme:         /home/alarm/.config/rofi/sidetab_ked

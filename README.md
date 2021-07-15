@@ -17,6 +17,8 @@ The steps are ordered in a way to help one bring the next most important functio
 A special note on this one: bringing a dialer, contacts app, sms app and mobile data would be done at the end.
 The motivation for this is I want to treat my Pinephone as a computer-first, phone-second device.
 
+**Also relevant configuration files for the step are added under a folder with the same name.**
+
 ## So Let's Begin 
 
 ### Step 1
@@ -52,7 +54,7 @@ You can easily bring your i3 config from your desktop.
 Be careful using the stock one because it starts a wizard, which cannot be viewed.
 This repo provides the config file at step_2/home/alarm/.config/i3/config. 
 
-Note the paths are in the form of STEP_NUM/ABSOLUTE-PATH-TO-FILE-ON-PHONE.
+**Note the paths are in the form of STEP_NUM/ABSOLUTE-PATH-TO-FILE-ON-PHONE.**
 
 Next i3 is to be configured to auto-start on login. Starting X happens with adding the following to .bash_profile:
 ```shell
@@ -65,7 +67,7 @@ Then i3 is executed from the xorg-xinit package through adding the following to 
 exec i3
 ```
 Personally at this point I prefer to install a terminal, which would let me run commands through the graphical env running.
-My personal favourite is xfce4-terminal. However the default way for starting the terminal on i3 is through i3-sensible-terminal,
+My personal favourite is _**xfce4-terminal**_. However the default way for starting the terminal on i3 is through i3-sensible-terminal,
 and this means you can choose from variety of other terminals and they will work out of the box.
 
 Finally auto-login.
@@ -105,4 +107,70 @@ Note there is already one commented out.
 
 ##### Resources
 - [logind.conf manual](https://man7.org/linux/man-pages/man5/logind.conf.5.html)
+
+### Step 4
+```diff
++ Install App launcher (for desktop mode) and a better status bar
+
+! Why: The status bar would be configured to show ip and battery, 
+! so that you won't forget to charge it on during installation
+! and won't need to wire a keyboard and run commands to get the ip,
+! so that you can connect using ssh. App launcher is already installed,
+! but I find it more natural to configure it right after i3. 
+```
+i3 comes with _**dmenu**_ preinstalled as app launcher (via keyboard) but I prefer to use _**rofi**_ as it supports theme-ing.
+Here's the diff from the .config/i3/config file:
+```diff
+-bindsym $mod+d exec --no-startup-id dmenu_run
++bindsym $mod+d exec rofi -show combi
++bindsym $mod+Tab exec rofi -modi window -show window
+```
+A complete config file for this step is provided at step_4/home/alarm/.config/i3/config.
+
+The rofi configs are put into .config/rofi. There is a file for the actual config and one for a theme.
+Two files are accessible at step_4/home/alarm/.config/rofi/. 
+
+The more interesting part is using _**i3blocks**_ for the status bar, which offers good configuration options.
+You can add text of course, but also more descriptive one and colors. 
+You can write your own programs to output info on the status bar, and you just need to follow the format.
+For start I only add the ip, the time and the battery to make the rest of the installation smoother.
+_**i3blocks**_ has one config file, which defines "sections" as:
+```shell
+[SECTION_NAME]
+command=PATH_TO_COMMAND
+color=COLOR
+interval=INTERVAL
+```
+The file sits at ~/.i3blocks.conf. 
+The referenced commands are put into ~/i3blocks-programs/ but can be anywhere as the path is written in the config itself.
+
+The clock script and the ip script are plundered from elsewhere. 
+With the battery script be careful using the path to the battery file. 
+For other devices it could be different.
+
+The last thing is to make i3 use the _**i3blocks**_, which is done through changes in the i3 config:
+```diff
+bar {
+-        status_command i3status
++        status_command i3blocks
++        font pango:monospace 16
++#       mode hide
++        modifier $mod2
++        position top
++        colors {
++                background #333333
++#               statusline #ffe57c
++                separator #0373bc
++        }
++        separator_symbol "|"
+}
+```
+
+##### Resources
+- [Rofi project](https://github.com/davatorium/rofi/wiki/Configuring-Rofi)
+- [Rofi themes](https://github.com/davatorium/rofi/wiki/Themes)
+- [i3blocks project](https://github.com/vivien/i3blocks)
+
+
+
 
