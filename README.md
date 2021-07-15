@@ -47,7 +47,7 @@ sudo pacman -Syu
 ```diff
 @@ Install X, i3, and make it boot into it without login @@
 
-! Why: First thing needed is the graphical environment and being able to get into it 
+Why: First thing needed is the graphical environment and being able to get into it 
 without keyboard.
 ```
 I prefer to install the whole xorg group just in case. Also the xorg-xinit package for auto-starting. 
