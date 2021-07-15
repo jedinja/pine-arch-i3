@@ -5,10 +5,10 @@ Instructions for installing bare-bones Arch on your Pinephone and using i3 on to
 The manual is devided into steps, which follow the following format:
 ### Step 0
 ```diff
-+ Decide to install Arch + i3 on your Pinephone
-
-! Why: Because it'd be cool to just dock your phone and be at your desktop environment
+@@ Decide to install Arch + i3 on your Pinephone @@
 ```
+_Why: Because it'd be cool to just dock your phone and be at your desktop environment_
+
 It's done by following the instructions in this page.
 ##### Resources
 - [This post](https://github.com/jedinja/pine-arch-i3)
@@ -172,6 +172,7 @@ bar {
 - [Rofi project](https://github.com/davatorium/rofi/wiki/Configuring-Rofi)
 - [Rofi themes](https://github.com/davatorium/rofi/wiki/Themes)
 - [i3blocks project](https://github.com/vivien/i3blocks)
+
 
 
 
