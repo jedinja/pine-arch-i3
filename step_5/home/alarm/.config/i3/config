@@ -209,3 +209,8 @@ bar {
         workspace_min_width 80
         strip_workspace_numbers yes
 }
+
+bindsym --release XF86PowerOff exec systemctl suspend -i, mode "susp"
+mode "susp" {
+        bindsym --release XF86PowerOff mode "default"
+}

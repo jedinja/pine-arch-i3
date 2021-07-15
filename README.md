@@ -176,6 +176,68 @@ bar {
 - [Rofi themes](https://github.com/davatorium/rofi/wiki/Themes)
 - [i3blocks project](https://github.com/vivien/i3blocks)
 
+### Step 5
+```diff
+@@ Do something useful with the Power button like Suspend @@
+
+Why: Achieve first version of traditional phone behavior like pressing the power
+button to make the phone "sleep" to conserve the battery. Also it's like first 
+steps in what can be done with i3.
+```
+
+Accessing power functions on the OS is a bit tricky if you want to do it as an underprivileged user.
+This is made easier with using a tool like _**polkit**_ - install it.
+Then a polkit policy is required to allow such behavior. A file needs to be added in /etc/polkit-1/rules.d/.
+Its name kind of follows Xorg conf conventions. Let's name it 85-suspend.rules. 
+It's contents are as follows:
+```shell
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.freedesktop.login1.suspend" &&
+        subject.isInGroup("users")) {
+        return polkit.Result.YES;
+    }
+});
+```
+The "&& subject.isInGroup("users")" could be omitted but I find it better to use as direct control on who can suspend the machine.
+
+Moving to actual key handling:
+
+First try was with using "bindcode" and finding the power button's key code in the i3 config.
+However, it turns out there is a handy symbol: XF86PowerOff, which could be used instead.
+
+So now, alongside the above polkit config adding the following line to i3's config makes the phone suspend.
+```diff
++ bindsym --release XF86PowerOff exec systemctl suspend -i
+```
+Turns out it brings a problem: when you press the power button again to wake up the phone it suspends a few seconds later again.
+It's not a 100% reproducible but it can fall into an endless loop. It could be also be related to the --release modifier.
+Nonetheless, it brings up the opportunity to use one of i3's powerful toolsets - modes.
+With every action one can tell i3 to fall into a specific mode, which could have a totally different keybinding scheme.
+You define a mode as:
+```shell
+mode "NAME_OF_THE_MODE" {
+  
+}
+```
+There is an example of this already in the default i3 config - the "resize" mode, which can be used as a reference.
+You put the overriding bindings inside the curly brackets and Voala.
+Activating the mode happens as you append the mode in a keybinding after a comma.
+So using a mode to resolve the aforementioned problem would look like this:
+```shell
+bindsym --release XF86PowerOff exec systemctl suspend -i, mode "susp"
+mode "susp" {
+    bindsym --release XF86PowerOff mode "default"
+}
+```
+As you can see pressing the power button suspends the system and makes it fall into "susp" mode.
+Pressing it again, however, only changes the mode to the default one. (You don't need to define that one though)
+
+##### Resources
+- [Polkit policy](https://itectec.com/ubuntu/ubuntu-authentication-required-before-suspend/)
+- [i3 binding modes](https://i3wm.org/docs/userguide.html#binding_modes)
+
+
+
 
 
 
