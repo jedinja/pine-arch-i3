@@ -26,9 +26,10 @@ The motivation for this is I want to treat my Pinephone as a computer-first, pho
 
 ### Step 1
 ```diff
-+ Download and write the bare-bones image from dreemurrs-embedded
+@@ Download and write the bare-bones image from dreemurrs-embedded @@
 
-! Why: Because somebody smart has done the heavy-lifting of making a good image for the Pinephone
+Why: Because somebody smart has done the heavy-lifting of making a good image for 
+the Pinephone
 ```
 Follow the installation guide [here](https://github.com/dreemurrs-embedded/Pine64-Arch/wiki/Installation-Guide).
 Don't forget to read the quick guide for the bare-bones image on that wiki.
@@ -44,9 +45,10 @@ sudo pacman -Syu
 
 ### Step 2
 ```diff
-+ Install X, i3, and make it boot into it without login
+@@ Install X, i3, and make it boot into it without login @@
 
-! Why: First thing needed is the graphical environment and being able to get into it without keyboard.
+! Why: First thing needed is the graphical environment and being able to get into it 
+without keyboard.
 ```
 I prefer to install the whole xorg group just in case. Also the xorg-xinit package for auto-starting. 
 i3-wm and i3status should also be added:
@@ -94,9 +96,9 @@ If you want to use another user you'll have to substitute it on every place in t
 
 ### Step 3
 ```diff
-+ Disable default power button behavior
+@@ Disable default power button behavior @@
 
-! Why: You don't want the power button on a phone to shut it down.
+Why: You don't want the power button on a phone to shut it down.
 ```
 The default power action would be set to ignore, so that nothing happens. 
 But no worries - later it'd be configured in i3 to do what we want it to.
@@ -113,13 +115,13 @@ Note there is already one commented out.
 
 ### Step 4
 ```diff
-+ Install App launcher (for desktop mode) and a better status bar
+@@ Install App launcher (for desktop mode) and a better status bar @@
 
-! Why: The status bar would be configured to show ip and battery, 
-! so that you won't forget to charge it on during installation
-! and won't need to wire a keyboard and run commands to get the ip,
-! so that you can connect using ssh. App launcher is already installed,
-! but I find it more natural to configure it right after i3. 
+Why: The status bar would be configured to show ip and battery, 
+so that you won't forget to charge it on during installation
+and won't need to wire a keyboard and run commands to get the ip,
+so that you can connect using ssh. App launcher is already installed,
+but I find it more natural to configure it right after i3. 
 ```
 i3 comes with _**dmenu**_ preinstalled as app launcher (via keyboard) but I prefer to use _**rofi**_ as it supports theme-ing.
 Here's the diff from the .config/i3/config file:
