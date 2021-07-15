@@ -12,6 +12,8 @@ The manual is devided into steps, which follow the following format:
 It's done by following the instructions in this page.
 ##### Resources
 - [This post](https://github.com/jedinja/pine-arch-i3)
+- [What is Arch](https://en.wikipedia.org/wiki/Arch_Linux)
+- [What is i3](https://en.wikipedia.org/wiki/I3_(window_manager))
 
 The steps are ordered in a way to help one bring the next most important functionality to the phone. 
 A special note on this one: bringing a dialer, contacts app, sms app and mobile data would be done at the end.
