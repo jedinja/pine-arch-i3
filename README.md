@@ -238,7 +238,7 @@ Pressing it again, however, only changes the mode to the default one. (You don't
 
 ### Step 6
 ```diff
-@@ Time to create a n App Launcher using rofi @@
+@@ Time to create an App Launcher using rofi @@
 
 Why: As the phone has a status bar it's time to make it open applications. 
 This is kind of a proof of concept step. Turns out Rofi is pretty powerful 
