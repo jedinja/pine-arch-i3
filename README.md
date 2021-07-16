@@ -242,7 +242,7 @@ Pressing it again, however, only changes the mode to the default one. (You don't
 
 Why: As the phone has a status bar it's time to make it open applications. 
 This is kind of a proof of concept step. Turns out Rofi is pretty powerful 
-for such a task and if it's already the default desctop launcher 
+for such a task and if it's already the default desktop launcher 
 then why not reuse it in the mobile interactions?
 ```
 
@@ -254,10 +254,10 @@ Moreover the themes in the official repo feel like more of a skin, not really sh
 Good news is there is a great repo with a ton of different themes, which could be used as a basis for developing one's own launcher experience.
 Thanks to [Aditya Shakya](https://github.com/adi1090x) there is this nice repo with all the themes. 
 I've provided a simple theme in this step's source files based on (stealed from) one of the colorful launchers in that repo. 
-Just drop it in ~/.config/rofi.
+Just drop it in ~/.config/rofi. And don't forget the colors.rasi file too.
 
 Then let's test it when the phone logs in - after all its point is not to only look at the status bar.
-The following should be appended at the end of yhe i3's config file:
+The following should be appended at the end of the i3's config file:
 ```diff
 + rofi -modi drun -show drun -theme sample
 ```
