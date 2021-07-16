@@ -132,7 +132,7 @@ Here's the diff from the .config/i3/config file:
 ```
 A complete config file for this step is provided at step_4/home/alarm/.config/i3/config.
 
-The rofi configs are put into .config/rofi. There is a file for the actual config and one for a theme.
+The **_rofi_** configs are put into .config/rofi. There is a file for the actual config and one for a theme.
 Two files are accessible at step_4/home/alarm/.config/rofi/. 
 
 The more interesting part is using _**i3blocks**_ for the status bar, which offers good configuration options.
@@ -210,7 +210,7 @@ So now, alongside the above polkit config adding the following line to i3's conf
 + bindsym --release XF86PowerOff exec systemctl suspend -i
 ```
 Turns out it brings a problem: when you press the power button again to wake up the phone it suspends a few seconds later again.
-It's not a 100% reproducible but it can fall into an endless loop. It could be also be related to the --release modifier.
+It's not a 100% reproducible but it can fall into an endless loop. It could also be related to the --release modifier.
 Nonetheless, it brings up the opportunity to use one of i3's powerful toolsets - modes.
 With every action one can tell i3 to fall into a specific mode, which could have a totally different keybinding scheme.
 You define a mode as:
@@ -235,6 +235,39 @@ Pressing it again, however, only changes the mode to the default one. (You don't
 ##### Resources
 - [Polkit policy](https://itectec.com/ubuntu/ubuntu-authentication-required-before-suspend/)
 - [i3 binding modes](https://i3wm.org/docs/userguide.html#binding_modes)
+
+### Step 6
+```diff
+@@ Time to create a n App Launcher using rofi @@
+
+Why: As the phone has a status bar it's time to make it open applications. 
+This is kind of a proof of concept step. Turns out Rofi is pretty powerful 
+for such a task and if it's already the default desctop launcher 
+then why not reuse it in the mobile interactions?
+```
+
+I wouldn't go much in the details of how to customize the **_rofi_** themes. 
+It's a powerful tool and one can look at the man page to see how it works.
+However, the man page is not very up-to-date, it seems, and the knowledge to enable you to create an Android-style launcher is just not there.
+Moreover the themes in the official repo feel like more of a skin, not really showing the real flexibility of the tool.
+
+Good news is there is a great repo with a ton of different themes, which could be used as a basis for developing one's own launcher experience.
+Thanks to [Aditya Shakya](https://github.com/adi1090x) there is this nice repo with all the themes. 
+I've provided a simple theme in this step's source files based on (stealed from) one of the colorful launchers in that repo. 
+Just drop it in ~/.config/rofi.
+
+Then let's test it when the phone logs in - after all its point is not to only look at the status bar.
+The following should be appended at the end of yhe i3's config file:
+```diff
++ rofi -modi drun -show drun -theme sample
+```
+
+Reboot and there's the PoC for the launcher!
+
+##### Resources
+- [Rofi theme man page](https://manpages.debian.org/testing/rofi/rofi-theme.5.en.html)
+- [Comprehensive rofi themes](https://github.com/adi1090x/rofi)
+
 
 
 
