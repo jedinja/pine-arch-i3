@@ -268,6 +268,46 @@ Reboot and there's the PoC for the launcher!
 - [Rofi theme man page](https://manpages.debian.org/testing/rofi/rofi-theme.5.en.html)
 - [Comprehensive rofi themes](https://github.com/adi1090x/rofi)
 
+### Step 7
+```diff
+@@ Decide on UI/UX interactions @@
+
+Why: This is a pure planning step, on which next steps would depend.
+That's why it's abstracted in a separate step.
+```
+
+This is a cycle process, which has the following steps:
+
+1. Draw a UI/UX wireframe
+2. Research and evaluate what is and what isn't possible with the available tools (_**rofi**_)
+3. If something is not possible either find a new tool or return to 1. to redesign it in a way to be possible with the available tools
+
+The end result from this process would shape the next steps added to this manual. 
+That's why they will be tracked as 7.8, 7.9, etc.
+This way it will be easier for people who want to do something differently to spot at which steps they need deviate from the manual.
+
+This process has yielded the following:
+
+- Workspace is used by default in tabbed mode with possibly removed window title
+- The Volume Up button is used for either Previous window or move to the left
+- Pressing the Volume Down button would open an App Drawer with four sections:
+- The first one (the default) is for favourites
+- The second one is for phone function scripts and toggles like WiFi, Torch, Data
+- The third contains all apps
+- The fourth one contains all open apps/windows
+- Develop a nice to look at theme for _**rofi**_
+
+Technical solutions for each are:
+
+- Scripting in i3
+- i3 config
+- i3 config
+- Custom _**rofi**_ modi implemented in bash to read .desktop files from custom folder
+- Custom _**rofi**_ modi implemented in bash to read .desktop files from custom folder
+- Regular "drun" modi in _**rofi**_
+- Regular "window" modi in _**rofi**_
+- Existing _**rofi**_ functionallity - the benefit of separated presentation from data
+
 
 
 
