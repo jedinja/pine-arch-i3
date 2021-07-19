@@ -299,7 +299,7 @@ This process has yielded the following:
 
 Technical solutions for each are:
 
-- Scripting in i3
+- i3 config
 - i3 config
 - i3 config
 - Custom _**rofi**_ modi implemented in bash to read .desktop files from custom folder
@@ -308,7 +308,29 @@ Technical solutions for each are:
 - Regular "window" modi in _**rofi**_
 - Existing _**rofi**_ functionallity - the benefit of separated presentation from data
 
+### Step 7.8
+```shell
+@@ Workspaces to be initialized in tabbed view by default @@
 
+Why: From the three window modes - regular (tiled), tabbed and stacked - 
+the tabbed fits the most with a phone UI
+```
+
+Adding the following to the i3 config does the deal:
+```shell
++ workspace_layout tabbed
+```
+
+As a bonus window borders are not needed on a phone. Again in i3 config:
+```shell
++ default_border none
+```
+
+This also hides the title bar.
+
+##### Resources
+- [i3 Layout docs](https://i3wm.org/docs/userguide.html#_layout_mode_for_new_containers)
+- [i3 Border docs](https://i3wm.org/docs/userguide.html#_default_border_style_for_new_windows)
 
 
 
