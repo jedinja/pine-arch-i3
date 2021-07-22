@@ -288,7 +288,7 @@ This way it will be easier for people who want to do something differently to sp
 
 This process has yielded the following:
 
-- Workspace is used by default in tabbed mode with possibly removed window title
+- Workspace is used by default in tabbed mode with possibly removed window title and cursor
 - The Volume Up button is used for either Previous window or move to the left
 - Pressing the Volume Down button would open an App Drawer with four sections:
 - The first one (the default) is for favourites
@@ -326,14 +326,133 @@ As a bonus window borders are not needed on a phone. Again in i3 config:
 + default_border none
 ```
 
-This also hides the title bar.
+And to minimize the title bars:
+```shell
+- font pango:monospace 18
++ font pango:DejaVu Sans Mono 0
+```
+This is a workaround but it seems there isn't much else to do.
 
 ##### Resources
 - [i3 Layout docs](https://i3wm.org/docs/userguide.html#_layout_mode_for_new_containers)
 - [i3 Border docs](https://i3wm.org/docs/userguide.html#_default_border_style_for_new_windows)
+- [Title bar workaround](https://bitbanged.com/posts/how-to-hide-i3wms-title-bar-properly/)
 
+### Step 7.9
+```diff
+@@ Assign the Volume Up to cycle through open apps @@
 
+Why: Using those buttons for volume control happens so rare and coupled with the fact
+that there are no other buttons on the Pinephone just screams to use them for somehting else.
+And the two most performed actions are opening applications and switching them.
+Volume Up would take care of the switching.
+```
 
+i3's config is the place again. Just doing the following
+```diff
++ bindsym XF86AudioRaiseVolume focus left
+- bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+```
+
+##### Resources
+- [i3 Navigation](https://i3wm.org/docs/userguide.html#_focusing_moving_containers)
+
+### Step 7.10
+```diff
+@@ Assign the Volume Down to open apps menu @@
+
+Why: Using those buttons for volume control happens so rare and coupled with the fact
+that there are no other buttons on the Pinephone just screams to use them for somehting else.
+And the two most performed actions are opening applications and switching them.
+Volume Down would take care of launching.
+```
+
+i3 config time. A theme was already configured in step 6, so it just has to be used:
+```diff
+- bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
++ bindsym XF86AudioLowerVolume exec rofi -modi drun -show drun -theme sample
+```
+
+As there is a dedicated shortcut now showing it on startup is not needed anymore.
+```diff
+- rofi -modi drun -show drun -theme sample
+```
+
+At last is installing **_unclutter_** and runing it from i3:
+```diff
++ exec unclutter --timeout 1
+```
+Lower than 1 second may not work as intended.
+
+### Step 7.11 
+```diff
+@@ Start implementing the all-in purposed application launcher based on rofi with favourites @@
+
+Why: One place to run everything is a good starting point for such UI endevaour. 
+Favourites is the palce for the most commonly used apps and as such it's good to see those 
+immediately after opening the launcher.
+```
+
+_**Rofi**_'s drun modi is quite good and it's perfect for the all apps mode of the launcher.
+However, it's not configurable. Using the .desktop files applications provide is quite good.
+What would have been great is for _**rofi**_ to let one configure the source folders.
+The good thing is **_rofi_** has the option to provide a script to run as a modi.
+
+Copy alppi.sh into the /usr/share/alppi folder (needs to be created).
+This script does the following:
+- searches first param for .desktop files
+- reads the Name, Icon, Exec and NoDisplay entries without localization nor additional actions
+- skips entries marked with NoDisplay=true
+- tries to find the specified icon in places according to the Icon Theme Specification, but ignores theme handling (the balance of result/effort)
+- outputs the data in the **_rofi_** format
+
+Then a directory containing the favourites is needed. I propose /home/alarm/.config/alppi/fv to be uniform with i3 and _**rofi**_.
+Custom .desktop files could be put there or symlinks to existing applications, which are usually stored in /usr/share/applications.
+
+Then the volume down shortcut cut be changed to:
+```diff
+- bindsym XF86AudioLowerVolume exec rofi -modi drun -show drun -theme sample
++ bindsym XF86AudioLowerVolume exec "rofi -show FV -modi \\"FV:/usr/share/alppi/alppi.sh /home/alarm/.config/alppi/fv\\" -theme sample"
+```
+Don't forget:
+- The whole command has to be surrounded by quotes because it contains a comma, 
+- and the internal quotes have to be escaped.
+- Paths should be absolute.
+
+##### Resources
+- [How to write rofi script](https://www.mankier.com/5/rofi-script)
+- [Rofi script parameters](https://github.com/davatorium/rofi/wiki/mode-Specs#advanced-configuration)
+- [Rofi script examples](https://github.com/davatorium/rofi/tree/next/Examples)
+- [Desktop file spec](https://specifications.freedesktop.org/desktop-entry-spec/latest/)
+- [Icon theme spec](https://specifications.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html)
+
+### Step 7.12
+```diff
+@@ Add another section to the launcher with utilities.
+
+Why: Distinguish between favourite apps and utilities, which are not used so often.
+```
+
+This is actually exactly the same as the favourites - only another folder is used.
+```diff
+- bindsym XF86AudioLowerVolume exec "rofi -show FV -modi \\"FV:/usr/share/alppi/alppi.sh /home/alarm/.config/alppi/fv\\" -theme sample"
++ bindsym XF86AudioLowerVolume exec "rofi -show FV -modi \\"FV:/usr/share/alppi/alppi.sh /home/alarm/.config/alppi/fv,UT:/usr/share/alppi/alppi.sh /home/alarm/.config/alppi/ut\\" -theme sample"
+```
+
+The proposed .config/alppi/ut folder can also contain symlinks and have to be created.
+
+This way _**rofi**_ is started with the possibility for the user to select from two "menus". However, the the modi switcher needs to be shown.
+Edit the sample.rasi file as follows to enable them:
+```diff
+- children:                       [ inputbar, listview ];
++ children:                       [ inputbar, listview, sidebar ];
+```
+
+Also, the buttons can be styled using the "sidebar" and "button" selectors. the sample.rasi in this step can be used as an example.
+A note: button height is managed through the font property's size. And the parent container's height is managed through its padding property.
+
+##### Resources
+-[Rofi theme manual](https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown)
 
 
 
