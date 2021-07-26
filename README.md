@@ -454,5 +454,19 @@ A note: button height is managed through the font property's size. And the paren
 ##### Resources
 -[Rofi theme manual](https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown)
 
+### Step 7.13, 7.14
+```diff
+@@ Add to the launcher all opened apps and all apps in the system @@
+
+Why: This way every app can be easily opened and there will be another option for navigating
+```
+As these are options, which **_rofi_** supports out of the box it is quite easy - just appending the two modi: window and drun.
+```diff
+- 
++ bindsym XF86AudioLowerVolume exec "rofi -show FV -modi \\"FV:/usr/share/alppi/alppi.sh /home/alarm/.config/alppi/fv,UT:/usr/share/alppi/alppi.sh /home/alarm/.config/alppi/ut\\" -theme sample"
++ bindsym XF86AudioLowerVolume exec "rofi -show FV -modi \\"FV:/usr/share/alppi/alppi.sh /home/alarm/.config/alppi/fv,UT:/usr/share/alppi/alppi.sh /home/alarm/.config/alppi/ut,window,drun\\" -theme sample"
+```
+
+The name in the menu could easily be changed. Just adding display-drun or display-window in the the configuration section of the **_rofi_** theme.
 
 
