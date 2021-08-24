@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=i3 reload config
+Comment=Reloads i3 config file for easy management on touch screens
+TryExec=i3-msg
+Exec=i3-msg "reload"
+Icon=/home/alarm/.desktop-scripts/i3.svg
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=Utility;

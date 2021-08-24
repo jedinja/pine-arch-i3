@@ -469,4 +469,26 @@ As these are options, which **_rofi_** supports out of the box it is quite easy 
 
 The name in the menu could easily be changed. Just adding display-drun or display-window in the the configuration section of the **_rofi_** theme.
 
+### Step 15
+```diff
+@@ Add some utilities and apps: @@
+@@ Chat: Telegram
+@@ Browser: Vivaldi
+@@ Power management: Reboot and Power OFF
+@@ Good to have: Reload i3 config
+
+Why: The phone is mainly used for chatting and browsing. Telegram and Vivaldi won't spy on you and won't use your data.
+Reloading i3 is good, so you can easily change something on the fly and make it work.
+```
+
+Let's put the utilities in ~/.desktop-scripts.
+The first is i3-reload and can be found in this step's folder. The used icons would also be there. 
+Then just create a symlink to the .desktop entry in the step 7.12's ut folder.
+Same goes for poweroff and reboot using systemd.
+Telegram installs straight-forward using pacman.
+Vivaldi however is not so easy. 
+There is a script in their website but it's buggy. At the end I did manually what the script does but without the fancy stuff.
+
+
+
 

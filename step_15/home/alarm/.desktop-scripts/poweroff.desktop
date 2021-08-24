@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Power Off
+Comment=Power off using systemd
+TryExec=systemctl
+Exec=systemctl poweroff
+Icon=/home/alarm/.desktop-scripts/off.png
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=Utility;

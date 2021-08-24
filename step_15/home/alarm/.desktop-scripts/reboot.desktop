@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Reboot
+Comment=Reboot using systemd
+TryExec=systemctl
+Exec=systemctl reboot
+Icon=/home/alarm/.desktop-scripts/reboot.png
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=Utility;
