@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Bright Up
+Comment=Increase brightness
+TryExec=light
+Exec=light -A 20
+Icon=/home/alarm/.desktop-scripts/bright.png
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=Utility;

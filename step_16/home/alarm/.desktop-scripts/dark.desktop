@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Dark Down
+Comment=Darken the brightness
+TryExec=light
+Exec=light -U 20
+Icon=/home/alarm/.desktop-scripts/dark.png
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=Utility;

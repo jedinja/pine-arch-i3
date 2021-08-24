@@ -490,6 +490,15 @@ Telegram installs straight-forward using pacman.
 Vivaldi however is not so easy. 
 There is a script in their website but it's buggy. At the end I did manually what the script does but without the fancy stuff.
 
+### Step 16
+```diff
+@@ Install light control
+
+Why: Theres seems to be a small issue when updating to 5.13 kernel. The screen is too dimmed afterwards.
+```
+
+Install _**light**_ from the community package.
+Add the desktop entries into .desktop-scripts and symlink them to the UT launcher folder (from 7.12).
 
 
 
