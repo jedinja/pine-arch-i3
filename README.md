@@ -76,13 +76,14 @@ My personal favourite is _**xfce4-terminal**_. However the default way for start
 and this means you can choose from variety of other terminals and they will work out of the box.
 
 Finally auto-login.
-The usual way is to copy the getty service, rename it, create sym link and edit it. 
-For my personal phone though I prefer to just edit the getty service (/usr/lib/systemd/system/getty@.service) itself
-and replace the exec line as follows:
+You need to create a drop-in snippet for the getty service at /etc/systemd/system/getty@tty1.service.d/override.conf.
+Add the following in the file:
 ```shell
-ExecStart=-/sbin/agetty -a alarm %I $TERM
+[Service]
+ExecStart=
+ExecStart=-/usr/bin/agetty --autologin alarm --noclear %I $TERM
 ```
-where "alarm" is the default user on the arch image.
+where alarm is the default system's user.
 
 Note that from here on "alarm" would be used for the configuration. 
 If you want to use another user you'll have to substitute it on every place in the manual. 
@@ -92,7 +93,7 @@ If you want to use another user you'll have to substitute it on every place in t
 - [Start X on login](https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login)
 - [Init X](https://wiki.archlinux.org/title/Xinit#Configuration)
 - [i3 terminals](https://man.archlinux.org/man/i3-sensible-terminal.1.en)
-- [Passwordless auto-login](https://unix.stackexchange.com/questions/42359/how-can-i-autologin-to-desktop-with-systemd)
+- [Passwordless auto-login](https://wiki.archlinux.org/title/Getty#Virtual_console)
 
 ### Step 3
 ```diff
